@@ -38,6 +38,7 @@
 
         console.info("Determining size of local storage.");
         let round = 0;
+        const bailOut = 100;
 
         while (lowerBound < upperBound) {
           const testBound = lowerBound + Math.floor((upperBound - lowerBound) / 2);
@@ -57,7 +58,7 @@
             upperBound = testBound - 1;
             console.log({ lowerBound, upperBound });
           }
-          if (round > 100) break;
+          if (round > bailOut) break;
           round++;
         }
         console.info("Size of local storage: ", upperBound);
