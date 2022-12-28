@@ -14,16 +14,15 @@
         return new Array(size + 1).join("0");
       }
 
-      let counter = 0;
-      let lowerBound = 0;
-      let upperBound = 1;
-
       document.getElementById("test-start").addEventListener("click", () => {
         if (localStorage.length > 0) {
           console.warn("Local storage is not empty. Trying to clear.");
           localStorage.clear();
           console.log("Local storage cleared.");
         }
+
+        let lowerBound = 0;
+        let upperBound = 1;
 
         try {
           console.info("Looking for upper bound.");
@@ -38,6 +37,8 @@
         }
 
         console.info("Determining size of local storage.");
+        let round = 0;
+
         while (lowerBound < upperBound) {
           const testBound = lowerBound + Math.floor((upperBound - lowerBound) / 2);
           const testString = createStringWithLength(testBound);
@@ -45,19 +46,19 @@
           try {
             localStorage.setItem("item", testString);
 
-            console.log(counter, ": Worked! Updating lower bound.");
+            console.log(round, ": Worked! Updating lower bound.");
             lowerBound = testBound;
 
             console.log({ lowerBound, upperBound });
           } catch (error) {
             console.error(error);
 
-            console.log(counter, ": Failed. Updating upper bound.");
+            console.log(round, ": Failed. Updating upper bound.");
             upperBound = testBound - 1;
             console.log({ lowerBound, upperBound });
           }
-          if (counter > 80) break;
-          counter++;
+          if (round > 100) break;
+          round++;
         }
         console.info("Size of local storage: ", upperBound);
       });
