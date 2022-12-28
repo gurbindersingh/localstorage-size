@@ -33,7 +33,9 @@
             upperBound += upperBound;
           }
         } catch (error) {
-          console.error(error, "Upper bound found: ", upperBound);
+          console.error(error);
+          console.log("Upper bound found: ", upperBound);
+          lowerBound = Math.floor(upperBound / 2);
         }
 
         console.info("Determining size of local storage.");
