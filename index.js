@@ -56,7 +56,7 @@ function determineLocalStorageSize(upperBound, lowerBound) {
   const bailOut = 100;
 
   for (let i = 0; i < bailOut && lowerBound < upperBound; i++) {
-    const testBound = lowerBound + Math.floor((upperBound - lowerBound) / 2);
+    const testBound = lowerBound + Math.ceil((upperBound - lowerBound) / 2);
     const testString = createStringWithLength(testBound);
 
     try {
@@ -72,7 +72,7 @@ function determineLocalStorageSize(upperBound, lowerBound) {
     }
   }
   console.info(`Size of local storage: ${upperBound} characters`);
-  return upperBound;
+  return lowerBound;
 }
 
 document.getElementById("test-start")?.addEventListener("click", () => {
@@ -89,7 +89,7 @@ document.getElementById("test-start")?.addEventListener("click", () => {
 
   document.getElementById("result").innerHTML = `Calculating.`;
   let result = determineLocalStorageSize(upperBound, lowerBound);
-  
+
   document.getElementById(
     "result"
   ).innerText = `The maximum size of local storage is ${result} characters.`;
