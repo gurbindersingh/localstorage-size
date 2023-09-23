@@ -57,19 +57,17 @@ function determineLocalStorageSize(upperBound, lowerBound) {
 
   for (let i = 0; i < bailOut && lowerBound < upperBound; i++) {
     const testBound = lowerBound + Math.ceil((upperBound - lowerBound) / 2);
-    const testString = createStringWithLength(testBound);
-
+    
     try {
+      const testString = createStringWithLength(testBound);
       localStorage.setItem("item", testString);
+      
       lowerBound = testBound;
-
-      console.log({ lowerBound, upperBound });
     } catch (error) {
       // console.error(error);
-
       upperBound = testBound - 1;
-      console.log({ lowerBound, upperBound });
     }
+    console.log({ lowerBound, upperBound });
   }
   console.info(`Size of local storage: ${upperBound} characters`);
   return lowerBound;
