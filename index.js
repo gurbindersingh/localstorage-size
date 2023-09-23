@@ -39,7 +39,7 @@ function findInitialUpperBound() {
       upperBound = 2 * upperBound;
     }
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     console.log("Upper bound found: ", upperBound);
   }
   return upperBound;
@@ -65,25 +65,34 @@ function determineLocalStorageSize(upperBound, lowerBound) {
 
       console.log({ lowerBound, upperBound });
     } catch (error) {
-      console.error(error);
+      // console.error(error);
 
-      console.log(i, ": Failed. Updating upper bound.");
       upperBound = testBound - 1;
       console.log({ lowerBound, upperBound });
     }
   }
-  console.info("Size of local storage: ", upperBound);
+  console.info(`Size of local storage: ${upperBound} characters`);
+  return upperBound;
 }
 
 document.getElementById("test-start")?.addEventListener("click", () => {
-  clearLocalStorage();
   let upperBound = findInitialUpperBound();
   let lowerBound = Math.floor(upperBound / 2);
 
   if (upperBound === 1) {
     console.error("The initial upper bound was 1. Reload the page.");
+    document.getElementById(
+      "result"
+    ).innerText = `Local storage was not cleared properly. Please reload the page.`;
     return;
   }
-  determineLocalStorageSize(upperBound, lowerBound);
+
+  document.getElementById("result").innerHTML = `Calculating.`;
+  let result = determineLocalStorageSize(upperBound, lowerBound);
+  
+  document.getElementById(
+    "result"
+  ).innerText = `The maximum size of local storage is ${result} characters.`;
+  clearLocalStorage();
 });
 console.info("Event handler added");
