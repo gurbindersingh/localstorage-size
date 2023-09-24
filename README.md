@@ -1,5 +1,6 @@
 # Local storage Size
 
-A simple script for determining the size of local storage in browsers.
+This is a simple script that uses binary search to determine the size of local storage in a browser. Unlike other scripts it tells you *exactly* how many characters you can store and due to the binary search it does so fairly quickly.
 
-> Note: Sometimes clearing the local storage doesn't work. Simply reload the page until it does.
+Simple open the [github page](https://gurbindersingh.github.io/localstorage-size/) and click on `Start test`.
+
