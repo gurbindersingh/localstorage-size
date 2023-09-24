@@ -57,11 +57,11 @@ function determineLocalStorageSize(upperBound, lowerBound) {
 
   for (let i = 0; i < bailOut && lowerBound < upperBound; i++) {
     const testBound = lowerBound + Math.ceil((upperBound - lowerBound) / 2);
-    
+
     try {
       const testString = createStringWithLength(testBound);
       localStorage.setItem("item", testString);
-      
+
       lowerBound = testBound;
     } catch (error) {
       // console.error(error);
@@ -76,21 +76,11 @@ function determineLocalStorageSize(upperBound, lowerBound) {
 document.getElementById("test-start")?.addEventListener("click", () => {
   let upperBound = findInitialUpperBound();
   let lowerBound = Math.floor(upperBound / 2);
-
-  if (upperBound === 1) {
-    console.error("The initial upper bound was 1. Reload the page.");
-    document.getElementById(
-      "result"
-    ).innerText = `Local storage was not cleared properly. Please reload the page.`;
-    return;
-  }
-
-  document.getElementById("result").innerHTML = `Calculating.`;
-  let result = determineLocalStorageSize(upperBound, lowerBound);
+  const result = determineLocalStorageSize(upperBound, lowerBound);
 
   document.getElementById(
     "result"
   ).innerText = `The maximum size of local storage is ${result} characters.`;
+  
   clearLocalStorage();
 });
-console.info("Event handler added");
